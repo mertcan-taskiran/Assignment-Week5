@@ -1,4 +1,4 @@
-package org.example;
+package ListeSinifi;
 
 public class MyList<T> {
     private T[] array;     // Elemanları tutmak için kullanılan dizi
@@ -86,4 +86,63 @@ public class MyList<T> {
         System.arraycopy(array, 0, newArray, 0, size);
         array = newArray;
     }
+
+    public int indexOf(T data) {
+        // Veri dizide bulunduğunda, verinin indeksini döndürür.
+        // Bulunamazsa -1 döndürür.
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(data)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(T data) {
+        // Veri dizide bulunduğunda, verinin son indeksini döndürür.
+        // Bulunamazsa -1 döndürür.
+        for (int i = size - 1; i >= 0; i--) {
+            if (array[i].equals(data)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isEmpty() {
+        // Liste boş ise true, değilse false döndürür.
+        return size == 0;
+    }
+
+    public T[] toArray() {
+        // Dizideki elemanları aynı sırayla bir dizi haline getirir ve dizi olarak döndürür.
+        T[] newArray = (T[]) new Object[size];
+        System.arraycopy(array, 0, newArray, 0, size);
+        return newArray;
+    }
+
+    public void clear() {
+        // Listeyi tamamen boşaltır.
+        size = 0;
+    }
+
+    public MyList<T> subList(int start, int finish) {
+        // Belirtilen başlangıç ve bitiş indekslerine ait alt bir liste döndürür.
+        // Başlangıç ve bitiş indeksleri geçerli olmalıdır.
+        if (start >= 0 && start < size && finish >= 0 && finish < size && start <= finish) {
+            MyList<T> sublist = new MyList<>(finish - start + 1);
+            for (int i = start; i <= finish; i++) {
+                sublist.add(array[i]);
+            }
+            return sublist;
+        }
+        return null;
+    }
+
+    public boolean contains(T data) {
+        // Verinin listede olup olmadığını kontrol eder.
+        // Liste içerisinde ise true, değilse false döndürür.
+        return indexOf(data) != -1;
+    }
+
 }
